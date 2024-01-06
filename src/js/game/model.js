@@ -1,11 +1,11 @@
 import { Player } from "./entity/player.js";
+import { Computer } from "./entity/computer.js";
 
 class GameModel {
-    // Player x always starts
+    // Player X always starts
     constructor() {
-        this.playerX = new Player("Player 1", "p1");
-        this.playerO = new Player("Player 2", "p2");
         this.gameBoard = new Array(9).fill("");
+        this.scoreBoard = new Array(3).fill(0);
         this.winArray = [
             // horizontal win
             [0, 1, 2], [3, 4, 5], [6, 7, 8],
@@ -15,17 +15,113 @@ class GameModel {
             [0, 4, 8], [2, 4, 6],
         ];
     }
-
-    bindOnDisplay(callback) {
-        this.display = callback; 
+    
+    bindDisplayDialog(callback) {
+        this.displayDialog = callback;
     }
 
-    isEmpty(cellNumber) {
+    bindDisplayBoard(callback) {
+        this.displayBoard = callback; 
+    }
+
+    bindDisplayScoreBoard(callback) {
+        this.displayScoreBoard = callback;
+    }
+
+    bindSetupScoreBoard(callback) {
+        this.setupScoreBoard = callback;
+    }
+
+    createHumanPlayers(data) {
+        if(data === "x") {
+            this.playerArray = [
+                new Player("Player 1", "P1", "x"),
+                new Player("Player 2", "P2", "o"),
+            ];
+        } else {
+            this.playerArray = [
+                new Player("Player 2", "P2", "x"),
+                new Player("Player 1", "P1", "o"),
+            ];
+        }
+
+        this.currentPlayer = this.playerArray[0];
+        this.setupScoreBoard(this.playerArray);
+    }
+
+    createComputerPlayer(data) {
+        if(data === "x") {
+            this.playerArray = [
+                new Player("Player", "YOU", "x"),
+                new Computer("Computer", "CPU", "o"),
+            ];
+        } else {
+            this.playerArray = [
+                new Player("Computer", "CPU", "x"),
+                new Computer("Player", "YOU", "o"),
+            ];
+        }
+
+        this.currentPlayer = this.playerArray[0];
+        this.setupScoreBoard(this.playerArray);
+
+        if(this.currentPlayer.name === "Computer") {
+            this.generateMove();
+        }
+    }
+
+    generateMove() {
+        const randomNumber = () => Math.floor(Math.random() * this.gameBoard.length);
+        let cellNumber = randomNumber();
+
+        while(this.gameBoard[cellNumber] !== "") {
+            cellNumber = randomNumber();
+        }
+
+        this.setMark(cellNumber);
+        this.determineGameState();
+        this.switchCurrentPlayer();
+    }
+
+    // Display method is invoked here
+    switchCurrentPlayer() {
+        this.currentPlayer = this.currentPlayer === this.playerArray[0] ? this.playerArray[1] : this.playerArray[0];
+
+        this.displayBoard(this.gameBoard, this.currentPlayer);
+        this.displayScoreBoard(this.scoreBoard);
+
+        if(this.gameBoard.some(value => value === "") && this.currentPlayer.name === "Computer") {
+            this.generateMove();
+        }
+    }
+    
+    isCellEmpty(cellNumber) {
         return this.gameBoard[cellNumber] === "";
     }
 
-    checkWin() {
-        const mark = this.markArray[this.turnNumber % this.markArray.length];
+    increaseScore(index) {
+        this.scoreBoard[index]++;
+    }
+
+    determineGameState() {
+        let message = null;
+
+        switch(true) {
+            case this.checkForWin():
+                message = `${this.currentPlayer.name} wins! ${this.currentPlayer.mark} takes the round!`;
+                this.increaseScore(this.currentPlayer === this.playerArray[0] ? 0 : 2);
+                this.displayDialog(message);
+                break;
+            case this.checkForTie():
+                message = "Round tied!";
+                this.increaseScore(1);
+                this.displayDialog(message);
+                break;
+        }
+    }
+
+    checkForWin() {
+        const mark = this.currentPlayer.mark;
         let hasWon = false;
 
         this.winArray.some((item) => {
@@ -39,19 +135,29 @@ class GameModel {
         return hasWon;
     }
 
-    checkTie() {
+    checkForTie() {
         return this.gameBoard.every(value => value !== "");
     }
 
     resetBoard() {
         this.gameBoard = this.gameBoard.map(cell => "");
-        this.turnNumber = 0;
+        this.currentPlayer = this.playerArray[0]; 
 
-        this.display(this.gameBoard, this.markArray, this.turnNumber);
+        this.displayBoard(this.gameBoard, this.currentPlayer, true);
+
+        if(this.currentPlayer.name === "Computer") {
+            this.generateMove();
+        }
     }
 
-    setCell(cellNumber) {
-        this.gameBoard[cellNumber] = this.markArray[this.turnNumber % this.markArray.length];
+    resetScore() {
+        this.scoreBoard = Array.from(new Array(3), () => 0);
+
+        this.displayScoreBoard(this.scoreBoard);
+    }
+
+    setMark(cellNumber) {
+        this.gameBoard[cellNumber] = this.currentPlayer.mark;
     }
 };
 

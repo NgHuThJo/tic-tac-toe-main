@@ -63,6 +63,7 @@ a {
   --bgc-score-o: hsl(39, 82%, 43%);
   --ff-body: system-ui, "Outfit", sans-serif;
   --fs-body: 1rem;
+  --fs-result-message: 1.5rem;
   --fw-body: 700;
   --fw-score: 400;
 }
@@ -2087,8 +2088,8 @@ body {
 .start > :not(:last-child) {
   margin-bottom: 2rem;
 }
-.start img {
-  width: var(--width-icon);
+.start svg {
+  width: 2rem;
 }
 .start__mark-options {
   gap: var(--gap);
@@ -2109,7 +2110,21 @@ body {
   align-items: center;
   padding: var(--padding);
   border-radius: var(--border-radius);
+}
+.start__mark-buttons > button path {
+  stroke: none;
+}
+.start__mark-buttons > button[data-pressed=true] {
   background-color: var(--bgc-mark-button);
+}
+.start__mark-buttons > button[data-pressed=true] path {
+  fill: var(--bgc-mark-option-inner);
+}
+.start__mark-buttons > button[data-pressed=false] path {
+  fill: var(--bgc-mark-button);
+}
+.start__mark-buttons > button[data-pressed=false]:hover {
+  background-color: var(--bgc-body);
 }
 .start__opponent {
   gap: var(--gap);
@@ -2191,11 +2206,11 @@ body {
 .game__board .score--o {
   --bgc-score: var(--bgc-score-o);
 }
-.game.x .game__turn-indicator::before {
+.game .game__turn-indicator::before {
   content: "";
   background-image: url("../../assets/icon-x-outline.svg");
 }
-.game.x .board__cell:not(.x, .o):hover {
+.game .board__cell:not(.x, .o):hover {
   background-image: url("../../assets/icon-x-outline.svg");
 }
 .game.o .game__turn-indicator::before {
@@ -2204,4 +2219,33 @@ body {
 }
 .game.o .board__cell:not(.x, .o):hover {
   background-image: url("../../assets/icon-o-outline.svg");
+}
+
+.result {
+  --spacing: 2rem;
+  width: 100%;
+  max-width: 100%;
+  padding: var(--spacing);
+  margin-block: auto;
+  border: none;
+  text-align: center;
+  background-color: var(--bgc-mark-option);
+}
+.result__message {
+  margin-bottom: var(--spacing);
+  font-size: var(--fs-result-message);
+}
+.result .button--quit {
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  color: var(--c-start-button);
+  background-color: var(--bgc-player-button);
+  box-shadow: 0 var(--y-shadow) 0 0 var(--bgc-player-button-shadow);
+}
+.result .button--next-round {
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  color: var(--c-start-button);
+  background-color: var(--bgc-cpu-button);
+  box-shadow: 0 var(--y-shadow) 0 0 var(--bgc-cpu-button-shadow);
 }/*# sourceMappingURL=style.css.map */

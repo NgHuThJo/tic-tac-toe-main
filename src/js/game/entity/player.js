@@ -1,9 +1,8 @@
 class Player {
-    constructor(name, alias) {
+    constructor(name, alias, mark) {
         this.name = name;
         this.alias = alias;
-        this.mark = "";
-        this.score = 0;
+        this.mark = mark;
     }
 };
 

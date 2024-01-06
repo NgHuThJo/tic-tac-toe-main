@@ -29,8 +29,8 @@ body {
         margin-bottom: 2rem;
     }
 
-    img {
-        width: var(--width-icon);
+    svg {
+        width: 2rem;
     }
 
     &__mark-options {
@@ -57,7 +57,28 @@ body {
 
             padding: var(--padding);
             border-radius: var(--border-radius);
-            background-color: var(--bgc-mark-button);
+
+            path {
+                stroke: none;
+            }
+
+            &[data-pressed="true"] {
+                background-color: var(--bgc-mark-button);
+
+                path {
+                    fill: var(--bgc-mark-option-inner);
+                }
+            }
+
+            &[data-pressed="false"] {
+                path {
+                    fill: var(--bgc-mark-button);
+                }
+
+                &:hover {
+                    background-color: var(--bgc-body);
+                }
+            }
         }
     }
 
@@ -165,7 +186,7 @@ body {
         }
     }
 
-    &.x {
+    & {
         .game__turn-indicator::before {
             content: "";
             background-image: url("../../assets/icon-x-outline.svg");
@@ -189,5 +210,40 @@ body {
                 background-image: url("../../assets/icon-o-outline.svg");
             }
         }
+    }
+}
+
+.result {
+    --spacing: 2rem;
+
+    width: 100%;
+    max-width: 100%;
+    padding: var(--spacing);
+    margin-block: auto;
+    border: none;
+    text-align: center;
+    background-color: var(--bgc-mark-option);
+
+    &__message {
+        margin-bottom: var(--spacing);
+        font: {
+            size: var(--fs-result-message);
+        }
+    }
+
+    .button--quit {
+        padding: 1rem;
+        border-radius: var(--border-radius);
+        color: var(--c-start-button);
+        background-color: var(--bgc-player-button);
+        box-shadow: 0 var(--y-shadow) 0 0 var(--bgc-player-button-shadow);
+    }
+
+    .button--next-round {
+        padding: 1rem;
+        border-radius: var(--border-radius);
+        color: var(--c-start-button);
+        background-color: var(--bgc-cpu-button);
+        box-shadow: 0 var(--y-shadow) 0 0 var(--bgc-cpu-button-shadow);
     }
 }
