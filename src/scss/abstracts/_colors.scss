@@ -1,0 +1,62 @@
+// Primary colors
+// Naming convention based on position in color wheel
+// 30 - 210: warm - mid - cool
+$c-dark-teal-700: hsl(198, 35%, 19%); // bgc mark option
+$c-dark-teal-800: hsl(200, 32%, 15%); // bgc body
+$c-dark-teal-900: hsl(201, 45%, 11%); // bgc mark option - inner
+$c-black-900: hsl(0, 0%, 0%); // c button
+$c-light-yellow-300: hsl(39, 100%, 69%); // bgc cpu button
+$c-gold-500: hsl(39, 82%, 43%); // c shadow cpu button
+$c-teal-400: hsl(178, 75%, 65%); // bgc player button
+$c-teal-500: hsl(178, 69%, 33%); // c shadow player button
+$c-ice-blue-300: hsl(198, 23%, 72%); // c body
+$c-gray-400: hsl(197, 6%, 44%);
+
+// Neutral colors
+
+// Gradients
+
+// Color map for generating color utility classes
+$utility-color: (
+);
+
+// Color map for generating custom color properties
+$contextual-color: (
+  "color": (
+    "body": $c-ice-blue-300,
+    "start-button": $c-black-900,
+    "score": $c-dark-teal-800,
+  ),
+  "background-color": (
+    "body": $c-dark-teal-800,
+    "mark-option": $c-dark-teal-700,
+    "mark-option-shadow": $c-dark-teal-900,
+    "mark-option-inner": $c-dark-teal-900,
+    "mark-button": $c-ice-blue-300,
+    "cpu-button": $c-light-yellow-300,
+    "cpu-button-shadow": $c-gold-500,
+    "player-button": $c-teal-400,
+    "player-button-shadow": $c-teal-500, 
+    "reset-button": $c-ice-blue-300,
+    "reset-button-shadow": $c-gray-400,
+    "score-x": $c-teal-400,
+    "score-tie": $c-ice-blue-300,
+    "score-o": $c-gold-500,
+  ),
+);
+
+// Theme map for generating theme classes
+$theme-color: (
+  "dark": (
+    "color": (
+    ),
+    "background-color": (
+    ),
+  ),
+  "light": (
+    "color": (
+    ),
+    "background-color": (
+    ),
+  ),
+);

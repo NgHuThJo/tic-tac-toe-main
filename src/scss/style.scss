@@ -1,0 +1,193 @@
+@use "./abstracts/" as *;
+@use "./base/" as *;
+@use "./components/" as *;
+@use "./layout/" as *;
+@use "./utilities/" as *;
+
+// General rules
+body {
+    --gap: 1rem;
+    --border-radius: 1rem;
+    --width-icon: 2rem;
+    --y-shadow: 4px;
+    --transiion-duration: 0.5s;
+}
+
+.header {
+    @include flex(null, center, center, var(--gap));
+
+    img {
+        width: var(--width-icon);
+    }    
+}
+
+// Specific rules
+.start {
+    text-align: center;
+
+    > :not(:last-child) {
+        margin-bottom: 2rem;
+    }
+
+    img {
+        width: var(--width-icon);
+    }
+
+    &__mark-options {
+        @include grid(null, null, var(--gap));
+
+        padding: 1.5rem;
+        border-radius: var(--border-radius);
+        background-color: var(--bgc-mark-option);
+        box-shadow: 0 var(--y-shadow) 0 0 var(--bgc-mark-option-shadow);
+    }
+
+    &__mark-buttons {
+        --padding: 0.5rem;
+
+        @include grid;
+
+        padding: var(--padding);
+        border-radius: var(--border-radius);
+        grid-template-columns: repeat(2, 1fr);
+        background-color: var(--bgc-mark-option-inner);
+
+        > button {
+            @include grid(center, center);
+
+            padding: var(--padding);
+            border-radius: var(--border-radius);
+            background-color: var(--bgc-mark-button);
+        }
+    }
+
+    &__opponent {
+        @include grid(null, null, var(--gap));
+
+        .button {
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            color: var(--c-start-button);
+
+            &:hover {
+                filter: brightness(75%);
+            }
+
+            &--cpu {
+                background-color: var(--bgc-cpu-button);
+                box-shadow: 0 var(--y-shadow) 0 0 var(--bgc-cpu-button-shadow);
+            }
+
+            &--player {
+                background-color: var(--bgc-player-button);
+                box-shadow: 0 var(--y-shadow) 0 0 var(--bgc-player-button-shadow);
+            }
+        }
+    }
+}
+
+.game {
+    &__header {
+        @include flex(null, space-between, null, var(--gap));
+
+        .button {
+            &--reset {
+                padding: 0.75rem;
+                border-radius: var(--border-radius);
+                background-color: var(--bgc-reset-button);
+                box-shadow: 0 var(--y-shadow) 0 0 var(--bgc-reset-button-shadow);
+            }
+        }
+    }
+
+    &__turn-indicator {
+        @include flex;
+
+        gap: var(--gap);
+        padding: 0.75rem 2rem;
+        border-radius: var(--border-radius);
+        background-color: var(--bgc-mark-option);
+        box-shadow: 0 var(--y-shadow) 0 0 var(--bgc-mark-option-shadow);
+
+        &::before {
+            width: 1.5rem;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 100%;
+        }
+    }
+
+    &__board {
+        @include grid;
+
+        gap: 1rem;
+        grid-template-columns: repeat(3, 1fr);
+        margin-top: 4rem;
+
+        .board__cell {
+            height: clamp(6.75rem, -0.3929rem + 30.4762vw, 8.75rem);
+            border-radius: var(--border-radius);
+            background-color: var(--bgc-mark-option);
+            background-repeat: no-repeat;
+            background-size: 50% 50%;
+            background-position: center;
+            box-shadow: 0 var(--y-shadow) 0 0 var(--bgc-mark-option-shadow);
+
+            &.x {
+                background-image: url("../../assets/icon-x.svg");
+            }
+
+            &.o {
+                background-image: url("../../assets/icon-o.svg");
+            }
+        }
+
+        .score {
+            --_bgc-score: var(--bgc-score, var(--bgc-mark-option));
+
+            @include flex(column, null, center);
+
+            border-radius: var(--border-radius);
+            color: var(--c-score);
+            background-color: var(--_bgc-score);
+
+            &--x {
+                --bgc-score: var(--bgc-score-x);
+            }
+
+            &--tie {
+                --bgc-score: var(--bgc-score-tie);
+            }
+
+            &--o {
+                --bgc-score: var(--bgc-score-o);
+            }
+        }
+    }
+
+    &.x {
+        .game__turn-indicator::before {
+            content: "";
+            background-image: url("../../assets/icon-x-outline.svg");
+        }
+
+        .board__cell {
+            &:not(.x, .o):hover {
+                background-image: url("../../assets/icon-x-outline.svg");
+            }
+        }
+    }
+
+    &.o {
+        .game__turn-indicator::before {
+            content: "";
+            background-image: url("../../assets/icon-o-outline.svg");
+        }
+
+        .board__cell {
+            &:not(.x, .o):hover {
+                background-image: url("../../assets/icon-o-outline.svg");
+            }
+        }
+    }
+}

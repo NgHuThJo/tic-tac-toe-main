@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./assets/favicon-32x32.png" type="image/png" size="32x32">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./src/css/style.css">
+    <script src="./src/js/main.js" type="module" defer></script>
+
+    <title>Tic-Tac-Toe</title>
+</head>
+<body class="grid a-c-center">
+    <main class="container">
+        <section class="start none">
+            <div class="header">
+                <img src="./assets/icon-x.svg" alt="">
+                <img src="./assets/icon-o.svg" alt="">
+            </div>
+            <div class="start__mark-options">
+                <p class="upper-case">Pick player 1's mark</p>
+                <div class="start__mark-buttons">
+                    <button>
+                        <img src="./assets/icon-x-outline.svg" alt="">
+                    </button>
+                    <button>
+                        <img src="./assets/icon-o-outline.svg" alt="">
+                    </button>
+                </div>
+                <p class="upper-case">Remember: x goes first</p>
+            </div>
+            <div class="start__opponent">
+                <button class="button button--cpu upper-case">New game (vs CPU)</button>
+                <button class="button button--player upper-case">New game (vs Player)</button>
+            </div>
+        </section>
+        <section class="game x">
+            <div class="game__header">
+               <div class="header">
+                <img src="./assets/icon-o.svg" alt="">
+                <img src="./assets/icon-x.svg" alt="">
+               </div> 
+                <div class="game__turn-indicator">
+                    <p class="turn">Turn</p>
+                </div>
+                <button class="button button--reset">
+                    <img src="./assets/icon-restart.svg" alt="">
+                </button>
+            </div>
+            <div class="game__board">
+                <button class="board__cell" data-id="0"></button>
+                <button class="board__cell" data-id="1"></button>
+                <button class="board__cell" data-id="2"></button>
+                <button class="board__cell" data-id="3"></button>
+                <button class="board__cell" data-id="4"></button>
+                <button class="board__cell" data-id="5"></button>
+                <button class="board__cell" data-id="6"></button>
+                <button class="board__cell" data-id="7"></button>
+                <button class="board__cell" data-id="8"></button>
+                <div class="score score--x">
+                    <p>X</p>
+                    <p>0</p>
+                </div>
+                <div class="score score--tie">
+                    <p>Ties</p>
+                    <p>0</p>
+                </div>
+                <div class="score score--o">
+                    <p>O</p>
+                    <p>0</p>
+                </div>
+            </div>
+            <dialog class="result">
+                <p></p>
+                <p></p>
+                <button class="next-round">Next round</button>
+            </dialog>
+        </section>
+    </main>
+</body>
+</html>
