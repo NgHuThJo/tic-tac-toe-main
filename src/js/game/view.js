@@ -51,44 +51,6 @@ class GameView {
             });
         })
     }
-
-    onStartPlayer(handler) {
-        this.startPlayerButton.addEventListener("click", () => {
-            let playerMark = null;
-
-            this.startMarkButtons.forEach((button) => {
-                if(button.dataset.pressed === "true") {
-                    playerMark = button.dataset.mark;
-                }
-            })
-
-            handler(playerMark);
-            this.switchState();
-        });
-    }
-
-    onComputerPlayer(handler) {
-        this.startCpuButton.addEventListener("click", () => {
-            let playerMark = null;
-
-            this.startMarkButtons.forEach((button) => {
-                if(button.dataset.pressed === "true") {
-                    playerMark = button.dataset.mark;
-                }
-            })
-
-            handler(playerMark);
-            this.switchState();
-        });
-    }
-
-    onQuitGame(handler) {
-        this.quitButton.addEventListener("click", () => {
-            handler();
-            this.dialog.close();
-            this.switchState();
-        });
-    }
     
     switchState() {
         getElement(`.${this.currentState}`).classList.toggle("none");
@@ -123,6 +85,36 @@ class GameView {
         })
     }
 
+    onStartPlayer(handler) {
+        this.startPlayerButton.addEventListener("click", () => {
+            let playerMark = null;
+
+            this.startMarkButtons.forEach((button) => {
+                if(button.dataset.pressed === "true") {
+                    playerMark = button.dataset.mark;
+                }
+            })
+
+            handler(playerMark);
+            this.switchState();
+        });
+    }
+
+    onComputerPlayer(handler) {
+        this.startCpuButton.addEventListener("click", () => {
+            let playerMark = null;
+
+            this.startMarkButtons.forEach((button) => {
+                if(button.dataset.pressed === "true") {
+                    playerMark = button.dataset.mark;
+                }
+            })
+
+            handler(playerMark);
+            this.switchState();
+        });
+    }
+
     onSetMark(handler) {
         this.board.addEventListener("click", event => {
             if(event.target.classList.contains("board__cell")) {
@@ -144,6 +136,13 @@ class GameView {
         })
     }
 
+    onQuitGame(handler) {
+        this.quitButton.addEventListener("click", () => {
+            handler(true);
+            this.dialog.close();
+            this.switchState();
+        });
+    }
 };
 
 export {GameView};

@@ -139,13 +139,13 @@ class GameModel {
         return this.gameBoard.every(value => value !== "");
     }
 
-    resetBoard() {
+    resetBoard(isQuit = false) {
         this.gameBoard = this.gameBoard.map(cell => "");
         this.currentPlayer = this.playerArray[0]; 
 
         this.displayBoard(this.gameBoard, this.currentPlayer, true);
 
-        if(this.currentPlayer.name === "Computer") {
+        if(!isQuit && this.currentPlayer.name === "Computer") {
             this.generateMove();
         }
     }

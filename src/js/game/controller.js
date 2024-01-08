@@ -54,8 +54,8 @@ class GameController {
         this.model.resetBoard();
     }
 
-    handleQuitGame = () => {
-        this.model.resetBoard();
+    handleQuitGame = (isQuit) => {
+        this.model.resetBoard(isQuit);
         this.model.resetScore();
     }
 };
